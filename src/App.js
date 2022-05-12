@@ -1,25 +1,21 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { createContext, useState } from "react";
+import Menu from "./Components/Menu";
+import Quiz from "./Components/Quiz";
+import Score from "./Components/Score";
+import "./App.css";
+export const DataContext = createContext();
 
-function App() {
+export default function App() {
+  const [appState, setAppState] = useState("menu");
+  const [score, setScore] = useState(0);
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <DataContext.Provider value={{ appState, setAppState,score,setScore }}>
+        <h1>App Development Quiz</h1>
+        {appState === "menu" && <Menu />}
+        {appState === "quiz" && <Quiz />}
+        {appState === "score" && <Score/>}
+      </DataContext.Provider>
     </div>
   );
 }
-
-export default App;
